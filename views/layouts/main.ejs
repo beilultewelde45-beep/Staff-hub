@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title %> · StaffHub</title>
+  <link rel="stylesheet" href="/css/app.css">
+  <script src="/js/app.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <%- include('../partials/sidebar') %>
+    <main>
+      <%- include('../partials/topbar') %>
+      <div class="content">
+        <%- include('../partials/flash') %>
+        <%- body %>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

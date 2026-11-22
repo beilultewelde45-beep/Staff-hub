@@ -1,0 +1,11 @@
+<header class="topbar">
+  <div class="row">
+    <button type="button" class="btn menu-toggle" aria-controls="sidebar" aria-expanded="false" data-menu-toggle>☰<span class="sr-only"> Menu</span></button>
+    <strong><%= title %></strong>
+  </div>
+  <div class="right">
+    <span class="small muted hide-sm"><%= now.format('ddd DD MMM YYYY · HH:mm') %> EAT</span>
+    <span class="small hide-sm"><%= currentUser.displayName %></span>
+    <div class="avatar" title="<%= currentUser.email %>"><%= userInitials %></div>
+  </div>
+</header>

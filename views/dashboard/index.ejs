@@ -1,0 +1,32 @@
+<%
+  const hour = now.hour();
+  const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  const firstName = currentUser.displayName.split(' ')[0];
+%>
+<div class="pagehead">
+  <div>
+    <h1><%= greeting %>, <%= firstName %></h1>
+    <p class="muted">Here's what needs your attention today.</p>
+  </div>
+</div>
+
+<div class="grid g2">
+  <section class="card">
+    <h2>Your access</h2>
+    <p class="muted small mb">Your menu shows only the areas these roles can use.</p>
+    <div class="row wrap">
+      <% currentUser.roles.forEach((r) => { %>
+        <span class="badge b-brand"><%= roleLabels[r] %></span>
+      <% }) %>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Today</h2>
+    <dl class="kv">
+      <dt>Date</dt><dd><%= now.format('dddd DD MMMM YYYY') %></dd>
+      <dt>Time</dt><dd><%= now.format('HH:mm') %> EAT (Africa/Kampala)</dd>
+      <dt>Last sign-in</dt><dd><%= currentUser.lastLoginAt ? fmtDateTime(currentUser.lastLoginAt) : '—' %></dd>
+    </dl>
+  </section>
+</div>

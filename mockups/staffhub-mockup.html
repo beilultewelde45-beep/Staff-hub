@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StaffHub — Clickable Mockup</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --surface:#fff; --ink:#1b2430; --muted:#5d6b7a; --line:#e3e8ef;
+    --brand:#0f766e; --brand-50:#e6f4f2; --brand-700:#0b5a54;
+    --ok:#15803d; --ok-50:#e8f6ec; --warn:#b45309; --warn-50:#fdf3e2; --bad:#b91c1c; --bad-50:#fdecec;
+    --info:#1d4ed8; --info-50:#e8effd; --radius:10px;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.45}
+  h1{font-size:22px;margin:0 0 4px} h2{font-size:16px;margin:0 0 12px} h3{font-size:14px;margin:0 0 8px}
+  p{margin:0} .muted{color:var(--muted)} .small{font-size:12px}
+  a{color:var(--brand);text-decoration:none}
+  .app{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+  aside{background:#0e1b26;color:#cfd8e3;padding:18px 12px;display:flex;flex-direction:column;gap:2px}
+  .logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:17px;padding:4px 10px 18px}
+  .logo span{width:30px;height:30px;border-radius:8px;background:var(--brand);display:grid;place-items:center;font-size:14px}
+  .navlbl{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#7d8b99;padding:14px 10px 6px}
+  aside button{all:unset;cursor:pointer;padding:8px 10px;border-radius:7px;display:flex;justify-content:space-between;align-items:center}
+  aside button:hover{background:#1a2a38} aside button.active{background:var(--brand);color:#fff}
+  aside .count{background:#2b3e50;color:#fff;border-radius:10px;font-size:11px;padding:1px 7px}
+  main{display:flex;flex-direction:column;min-width:0}
+  .topbar{height:58px;background:var(--surface);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;gap:16px}
+  .topbar .right{display:flex;align-items:center;gap:14px}
+  .avatar{width:32px;height:32px;border-radius:50%;background:var(--brand-50);color:var(--brand-700);display:grid;place-items:center;font-weight:600;font-size:12px}
+  select,input,textarea{font:inherit;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:#fff;color:var(--ink);width:100%}
+  label{display:block;font-weight:500;margin-bottom:5px} .req{color:var(--bad)}
+  .content{padding:24px;max-width:1180px;width:100%}
+  .pagehead{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:20px;gap:12px;flex-wrap:wrap}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+  .grid{display:grid;gap:16px} .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+  .btn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;font-weight:500;border:1px solid var(--line);background:#fff}
+  .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff} .btn.primary:hover{background:var(--brand-700)}
+  .btn.danger{color:var(--bad);border-color:#f3c4c4} .btn.big{padding:12px 22px;font-size:15px}
+  .btn[disabled]{opacity:.45;cursor:not-allowed}
+  .badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:500;background:#eef1f5;color:var(--muted)}
+  .b-ok{background:var(--ok-50);color:var(--ok)} .b-warn{background:var(--warn-50);color:var(--warn)} .b-bad{background:var(--bad-50);color:var(--bad)} .b-info{background:var(--info-50);color:var(--info)} .b-brand{background:var(--brand-50);color:var(--brand-700)}
+  table{width:100%;border-collapse:collapse} th{text-align:left;font-size:12px;color:var(--muted);font-weight:500;padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+  td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle} tr:last-child td{border-bottom:0} .num{text-align:right;font-variant-numeric:tabular-nums}
+  .stat .v{font-size:24px;font-weight:700;margin-top:4px} .stat .l{color:var(--muted);font-size:12px}
+  .alert{border-radius:8px;padding:10px 12px;font-size:13px;display:flex;gap:8px;align-items:flex-start}
+  .alert.warn{background:var(--warn-50);color:var(--warn)} .alert.bad{background:var(--bad-50);color:var(--bad)} .alert.ok{background:var(--ok-50);color:var(--ok)} .alert.info{background:var(--info-50);color:var(--info)}
+  .row{display:flex;gap:10px;align-items:center} .between{justify-content:space-between} .wrap{flex-wrap:wrap}
+  .stack>*+*{margin-top:12px}
+  .tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:16px;overflow-x:auto}
+  .tabs span{padding:9px 12px;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap}
+  .tabs span.on{color:var(--brand-700);border-color:var(--brand);font-weight:600}
+  .kv{display:grid;grid-template-columns:150px 1fr;gap:8px 12px} .kv dt{color:var(--muted)} .kv dd{margin:0}
+  .lock{border:1px dashed #cdd6e0;border-radius:var(--radius);padding:26px;text-align:center;color:var(--muted);background:repeating-linear-gradient(45deg,#fafbfc,#fafbfc 8px,#f3f5f8 8px,#f3f5f8 16px)}
+  .kanban{display:grid;grid-template-columns:repeat(5,minmax(190px,1fr));gap:12px;overflow-x:auto}
+  .col{background:#eef1f5;border-radius:var(--radius);padding:10px} .col h3{display:flex;justify-content:space-between}
+  .kcard{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px;margin-top:8px}
+  .stepper{display:flex;gap:0;margin:6px 0 4px}
+  .step{flex:1;text-align:center;font-size:12px;color:var(--muted);position:relative;padding-top:26px}
+  .step:before{content:attr(data-n);position:absolute;top:0;left:50%;transform:translateX(-50%);width:22px;height:22px;border-radius:50%;background:#e3e8ef;display:grid;place-items:center;font-weight:600;color:var(--muted);z-index:1}
+  .step:after{content:"";position:absolute;top:11px;left:-50%;width:100%;height:2px;background:#e3e8ef}
+  .step:first-child:after{display:none}
+  .step.done:before{background:var(--brand);color:#fff;content:"✓"} .step.done:after,.step.cur:after{background:var(--brand)}
+  .step.cur:before{background:#fff;border:2px solid var(--brand);color:var(--brand)} .step.cur{color:var(--ink);font-weight:600}
+  .check{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)} .check:last-child{border:0}
+  .tick{width:22px;height:22px;border-radius:6px;border:2px solid #cdd6e0;flex:none;display:grid;place-items:center;font-size:13px}
+  .tick.on{background:var(--ok);border-color:var(--ok);color:#fff}
+  .tick.x{background:var(--bad-50);border-color:#f3c4c4;color:var(--bad)}
+  .checkin{display:flex;align-items:center;justify-content:space-between;gap:20px;background:linear-gradient(135deg,#0f766e,#115e59);color:#fff;border:0}
+  .checkin .clock{font-size:34px;font-weight:700;letter-spacing:.5px}
+  .bar{height:8px;background:#e9edf2;border-radius:6px;overflow:hidden} .bar i{display:block;height:100%;background:var(--brand)}
+  .note{position:fixed;bottom:14px;right:14px;background:#0e1b26;color:#cfd8e3;font-size:12px;padding:8px 12px;border-radius:8px;max-width:330px;opacity:.92}
+  .screen{display:none} .screen.on{display:block}
+  /* login & public */
+  .center{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(160deg,#e6f4f2,#f5f7fa 60%)}
+  .public{min-height:100vh;background:var(--bg)}
+  .pubhead{background:#fff;border-bottom:1px solid var(--line);padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+  .modal-bg{position:fixed;inset:0;background:rgba(14,27,38,.45);display:none;place-items:center;z-index:5}
+  .modal-bg.on{display:grid}
+  @media (max-width:900px){.app{grid-template-columns:1fr} aside{display:none} .g3,.g4{grid-template-columns:repeat(2,1fr)} .g2{grid-template-columns:1fr}}
+  @media (max-width:560px){.g3,.g4{grid-template-columns:1fr} .content{padding:16px} .kv{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<div id="login" class="screen">
+  <div class="center">
+    <div class="card" style="width:100%;max-width:380px;padding:28px">
+      <div class="logo" style="color:var(--ink);padding:0 0 16px"><span style="color:#fff">SH</span>StaffHub</div>
+      <h1>Sign in</h1><p class="muted" style="margin-bottom:18px">Use your work email. Never share your password.</p>
+      <div class="stack">
+        <div><label>Work email <span class="req">*</span></label><input value="grace.namuli@company.ug"></div>
+        <div><label>Password <span class="req">*</span></label><input type="password" value="password"></div>
+        <button class="btn primary big" style="width:100%;justify-content:center" onclick="go('dashboard')">Sign in</button>
+        <div class="alert bad small">Example error: “This account has been deactivated. Contact HR.”</div>
+        <p class="small muted" style="text-align:center">Looking for a job? <a href="#" onclick="go('careers')">View open vacancies →</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PUBLIC CAREERS / APPLY ============ -->
+<div id="careers" class="screen">
+  <div class="public">
+    <div class="pubhead"><div class="logo" style="color:var(--ink);padding:0"><span style="color:#fff">SH</span>Careers</div><a href="#" onclick="go('login')">Staff sign in</a></div>
+    <div class="content" style="max-width:860px;margin:0 auto">
+      <a href="#" class="small">← All vacancies</a>
+      <div class="pagehead" style="margin-top:10px"><div><h1>Sales Executive</h1><p class="muted">Sales · Kampala · Full-time</p></div><span class="badge b-warn">Closes 4 Dec 2026, 23:59 EAT</span></div>
+      <div class="grid g2" style="grid-template-columns:1.1fr 1fr">
+        <div class="card stack">
+          <h2>About the role</h2>
+          <p>Grow our customer base across Central Region. Manage a portfolio of SME clients and meet monthly targets.</p>
+          <h3>Requirements</h3>
+          <ul style="margin:0;padding-left:18px"><li>Diploma or degree in Business</li><li>2+ years in B2B sales</li><li>Fluent English and Luganda</li></ul>
+        </div>
+        <div class="card stack">
+          <h2>Apply now</h2><p class="small muted">No account needed. One application per email for this vacancy.</p>
+          <div><label>Full name <span class="req">*</span></label><input value="Brian Okello"></div>
+          <div><label>Email <span class="req">*</span></label><input value="brian.okello@gmail.com"></div>
+          <div><label>Phone <span class="req">*</span></label><input value="+256 772 000 111"></div>
+          <div><label>CV link <span class="req">*</span></label><input placeholder="https://…"></div>
+          <div><label>Cover letter</label><textarea rows="3"></textarea></div>
+          <div class="alert bad small">You have already applied for this vacancy with this email address.</div>
+          <button class="btn primary" style="justify-content:center">Submit application</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ APP SHELL ============ -->
+<div id="shell" class="app" style="display:none">
+  <aside id="nav"></aside>
+  <main>
+    <div class="topbar">
+      <div class="row"><strong id="crumb">Dashboard</strong></div>
+      <div class="right">
+        <span class="small muted">Fri 20 Nov 2026 · 08:21 EAT</span>
+        <label class="small muted" style="margin:0">Viewing as</label>
+        <select id="role" style="width:auto" onchange="setRole(this.value)">
+          <option value="employee">Employee</option><option value="manager">Line Manager</option><option value="hr">HR Manager</option>
+          <option value="recruiter">Recruiter</option><option value="payroll">Payroll Officer</option><option value="asset">Asset Officer</option><option value="admin">System Admin</option>
+        </select>
+        <div class="avatar" id="av">GN</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="screen">
+      <div class="pagehead"><div><h1>Good morning, <span class="who">Grace</span></h1><p class="muted">Here's what needs your attention today.</p></div></div>
+      <div class="card checkin" style="margin-bottom:16px">
+        <div><p style="opacity:.8">Today · Schedule 08:00 – 17:00 · 15 min grace</p><div class="clock">08:21</div><span class="badge b-warn" style="background:#fff3;color:#fff">Checked in 08:21 · Late 6 min</span></div>
+        <div class="row"><button class="btn" disabled style="background:#fff3;color:#fff;border-color:#fff4">Check in</button><button class="btn big" style="background:#fff;color:var(--brand-700);border:0">Check out</button></div>
+      </div>
+      <div class="grid g4" style="margin-bottom:16px">
+        <div class="card stat"><div class="l">Annual leave left</div><div class="v">13 <span class="small muted">/ 21 days</span></div></div>
+        <div class="card stat"><div class="l">Late this month</div><div class="v">2</div></div>
+        <div class="card stat role-mgr"><div class="l">Pending approvals</div><div class="v">5</div></div>
+        <div class="card stat"><div class="l">Assets assigned</div><div class="v">2</div></div>
+      </div>
+      <div class="grid g2">
+        <div class="card"><div class="row between"><h2>My recent attendance</h2><a href="#">View month</a></div>
+          <table><tr><th>Date</th><th>In</th><th>Out</th><th>Status</th></tr>
+          <tr><td>Thu 19 Nov</td><td>07:56</td><td>17:04</td><td><span class="badge b-ok">Present</span></td></tr>
+          <tr><td>Wed 18 Nov</td><td>08:22</td><td>17:10</td><td><span class="badge b-warn">Late 7m</span></td></tr>
+          <tr><td>Tue 17 Nov</td><td>—</td><td>—</td><td><span class="badge b-info">On leave</span></td></tr>
+          <tr><td>Mon 16 Nov</td><td>—</td><td>—</td><td><span class="badge b-bad">Absent</span> <a class="small" href="#">Request correction</a></td></tr></table></div>
+        <div class="card"><div class="row between"><h2>Notifications</h2></div>
+          <div class="stack small">
+            <div class="alert ok">Your leave 17 Nov (1 day) was approved by Sarah Achieng.</div>
+            <div class="alert info">October payslip is available.</div>
+            <div class="alert warn">Please acknowledge receipt of <b>AST-0042 Dell Latitude 5440</b>.</div>
+          </div></div>
+      </div>
+    </section>
+
+    <!-- LEAVE REQUEST -->
+    <section id="leave" class="screen">
+      <div class="pagehead"><div><h1>Request leave</h1><p class="muted">Counted in working days — weekends and public holidays are excluded.</p></div></div>
+      <div class="grid g2" style="grid-template-columns:1.2fr 1fr">
+        <div class="card stack">
+          <div><label>Leave type <span class="req">*</span></label><select><option>Annual leave</option><option>Sick leave</option><option>Maternity leave</option><option>Unpaid leave</option></select></div>
+          <div class="grid g2"><div><label>Start date <span class="req">*</span></label><input type="date" value="2026-12-04"></div><div><label>End date <span class="req">*</span></label><input type="date" value="2026-12-11"></div></div>
+          <div><label>Reason <span class="req">*</span></label><textarea rows="3">Family visit in Gulu</textarea></div>
+          <div class="alert info"><b>6 working days</b>&nbsp;(Fri 4 – Fri 11 Dec, excludes Sat–Sun). Needs Line Manager <b>and</b> HR approval (over 5 days).</div>
+          <div class="alert bad">Overlaps your pending request 10–11 Dec. Change your dates or cancel that request first.</div>
+          <div class="row"><button class="btn primary" disabled>Submit request</button><button class="btn">Cancel</button></div>
+        </div>
+        <div class="card stack">
+          <h2>My balances · 2026</h2>
+          <div><div class="row between small"><span>Annual</span><span>13 of 21 available · 2 pending</span></div><div class="bar"><i style="width:33%"></i></div></div>
+          <div><div class="row between small"><span>Sick</span><span>28 of 30</span></div><div class="bar"><i style="width:7%"></i></div></div>
+          <div><div class="row between small"><span>Compassionate</span><span>5 of 5</span></div><div class="bar"><i style="width:0"></i></div></div>
+          <h3 style="margin-top:18px">My requests</h3>
+          <table><tr><th>Dates</th><th>Days</th><th>Status</th></tr>
+          <tr><td>10–11 Dec</td><td>2</td><td><span class="badge b-warn">Pending manager</span></td></tr>
+          <tr><td>17 Nov</td><td>1</td><td><span class="badge b-ok">Approved</span></td></tr>
+          <tr><td>2–6 Oct</td><td>5</td><td><span class="badge b-ok">Approved</span></td></tr></table>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPROVALS -->
+    <section id="approvals" class="screen">
+      <div class="pagehead"><div><h1>Approvals</h1><p class="muted">Everything waiting for your decision. Rejections need a reason.</p></div></div>
+      <div class="tabs"><span class="on">All (5)</span><span>Leave (2)</span><span>Attendance corrections (1)</span><span class="role-hr-only">Requisitions (1)</span><span class="role-hr-only">Offers (1)</span><span class="role-hr-only">Profile changes</span><span class="role-hr-only">Payroll</span></div>
+      <div class="card" style="padding:0">
+        <table>
+          <tr><th>Type</th><th>Employee</th><th>Details</th><th>Submitted</th><th>Stage</th><th></th></tr>
+          <tr><td><span class="badge b-info">Leave</span></td><td>Grace Namuli</td><td>Annual · 4–11 Dec · <b>6 days</b><br><span class="small muted">Balance after: 7</span></td><td>Today 08:30</td><td>Manager → HR</td><td class="row"><button class="btn primary">Approve</button><button class="btn danger" onclick="modal(true)">Reject</button></td></tr>
+          <tr><td><span class="badge b-info">Leave</span></td><td>Peter Ssali</td><td>Sick · 19 Nov · 1 day</td><td>Yesterday</td><td>Manager</td><td class="row"><button class="btn primary">Approve</button><button class="btn danger" onclick="modal(true)">Reject</button></td></tr>
+          <tr><td><span class="badge b-warn">Correction</span></td><td>Joan Akello</td><td>16 Nov · check-in 08:02 (was: none)<br><span class="small muted">“Forgot to check in, was at client site”</span></td><td>17 Nov</td><td>Manager</td><td class="row"><button class="btn primary">Approve</button><button class="btn danger" onclick="modal(true)">Reject</button></td></tr>
+          <tr class="role-hr-only"><td><span class="badge b-brand">Requisition</span></td><td>Sarah Achieng</td><td>Sales Executive × 2 · UGX 1,800,000–2,400,000</td><td>15 Nov</td><td>HR</td><td class="row"><button class="btn primary">Approve</button><button class="btn danger" onclick="modal(true)">Reject</button></td></tr>
+          <tr class="role-hr-only"><td><span class="badge b-brand">Offer</span></td><td>Brian Okello</td><td>Sales Executive · UGX 2,100,000 · start 4 Jan 2027</td><td>19 Nov</td><td>HR</td><td class="row"><button class="btn primary">Approve</button><button class="btn danger" onclick="modal(true)">Reject</button></td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- EMPLOYEES -->
+    <section id="employees" class="screen">
+      <div class="pagehead"><div><h1>Employees</h1><p class="muted">142 active · 3 onboarding · 2 exiting</p></div><button class="btn primary role-hr-only">+ Add employee</button></div>
+      <div class="card" style="padding:0">
+        <div class="row" style="padding:12px"><input placeholder="Search name or employee no." style="max-width:280px"><select style="max-width:170px"><option>All departments</option></select><select style="max-width:150px"><option>Active</option><option>Exited</option></select></div>
+        <table><tr><th>Employee</th><th>No.</th><th>Department</th><th>Job title</th><th>Manager</th><th>Status</th></tr>
+          <tr onclick="go('profile')" style="cursor:pointer"><td><b>Grace Namuli</b></td><td>SH-0031</td><td>Sales</td><td>Account Manager</td><td>Sarah Achieng</td><td><span class="badge b-ok">Active</span></td></tr>
+          <tr><td><b>Peter Ssali</b></td><td>SH-0044</td><td>Sales</td><td>Sales Executive</td><td>Sarah Achieng</td><td><span class="badge b-ok">Active</span></td></tr>
+          <tr><td><b>Brian Okello</b></td><td>SH-0143</td><td>Sales</td><td>Sales Executive</td><td>Sarah Achieng</td><td><span class="badge b-info">Onboarding</span></td></tr>
+          <tr><td><b>Ruth Nakato</b></td><td>SH-0012</td><td>Finance</td><td>Accountant</td><td>David Mugisha</td><td><span class="badge b-warn">Exiting · LWD 30 Nov</span></td></tr>
+          <tr><td><b>Moses Kato</b></td><td>SH-0007</td><td>Operations</td><td>Driver</td><td>Henry Ouma</td><td><span class="badge">Exited</span></td></tr></table>
+      </div>
+    </section>
+
+    <!-- PROFILE -->
+    <section id="profile" class="screen">
+      <div class="pagehead"><div class="row"><div class="avatar" style="width:52px;height:52px;font-size:16px">GN</div><div><h1>Grace Namuli</h1><p class="muted">SH-0031 · Account Manager · Sales · reports to Sarah Achieng</p></div></div><button class="btn role-hr-only">Edit profile</button></div>
+      <div class="tabs"><span class="on">Overview</span><span>Job</span><span>Compensation 🔒</span><span>Attendance</span><span>Leave</span><span>Assets</span><span>History</span></div>
+      <div class="grid g2">
+        <div class="card"><h2>Personal & contact</h2>
+          <dl class="kv"><dt>Legal name</dt><dd>Grace Namuli <a class="small" href="#">Request change</a></dd><dt>Work email</dt><dd>grace.namuli@company.ug</dd><dt>Phone</dt><dd>+256 701 234 567</dd><dt>Address</dt><dd>Ntinda, Kampala</dd><dt>Emergency contact</dt><dd>John Namuli (brother) · +256 772 111 222</dd><dt>Hire date</dt><dd>3 Feb 2023</dd><dt>Schedule</dt><dd>Mon–Fri 08:00–17:00 · 15 min grace</dd></dl></div>
+        <div class="card" id="compCard"><div class="row between"><h2>Compensation & bank</h2><span class="badge b-bad">Restricted · HR, Payroll, self</span></div>
+          <div id="compData"><dl class="kv"><dt>Basic salary</dt><dd><b>UGX 2,400,000</b> / month</dd><dt>Allowances</dt><dd>Transport UGX 200,000 · Airtime UGX 50,000</dd><dt>Bank</dt><dd>Stanbic Bank · ****4821 <span class="badge b-warn">Change pending HR</span></dd><dt>NIN / TIN</dt><dd>CF9•••••••12K / 10•••••789</dd><dt>NSSF No.</dt><dd>•••••3341</dd></dl></div>
+          <div id="compLock" class="lock" style="display:none">🔒<br><b>Not available for your role</b><br><span class="small">Managers cannot view salary, bank or ID details.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PIPELINE -->
+    <section id="pipeline" class="screen">
+      <div class="pagehead"><div><h1>Sales Executive · Pipeline</h1><p class="muted">Requisition REQ-0018 <span class="badge b-ok">HR approved</span> · Published · closes 4 Dec 2026 · 23 applicants</p></div><div class="row"><button class="btn">Close vacancy</button><a class="btn" href="#" onclick="go('careers')">View public page ↗</a></div></div>
+      <div class="kanban">
+        <div class="col"><h3>Submitted <span class="badge">14</span></h3><div class="kcard"><b>Diana Atim</b><p class="small muted">Applied 18 Nov</p></div><div class="kcard"><b>Samuel Wasswa</b><p class="small muted">Applied 17 Nov</p></div><div class="kcard"><b>Esther Nabirye</b><p class="small muted">Applied 16 Nov</p></div></div>
+        <div class="col"><h3>Shortlisted <span class="badge">5</span></h3><div class="kcard"><b>Ivan Mukasa</b><p class="small muted">5 yrs FMCG sales</p><button class="btn" style="margin-top:8px;padding:5px 9px;font-size:12px">Schedule interview</button></div><div class="kcard"><b>Lydia Kyomuhendo</b></div></div>
+        <div class="col"><h3>Interview <span class="badge">2</span></h3><div class="kcard"><b>Allan Tumusiime</b><p class="small muted">📅 Mon 23 Nov · 10:00 EAT · in person</p></div><div class="kcard"><b>Brenda Auma</b><p class="small"><span class="badge b-ok">Passed</span></p><button class="btn" style="margin-top:8px;padding:5px 9px;font-size:12px">Draft offer</button></div></div>
+        <div class="col"><h3>Offered <span class="badge">1</span></h3><div class="kcard"><b>Brian Okello</b><p class="small">UGX 2,100,000</p><span class="badge b-warn">Awaiting HR approval</span><p class="small muted" style="margin-top:6px">“Send offer” unlocks after approval</p></div></div>
+        <div class="col"><h3>Hired <span class="badge">1</span></h3><div class="kcard"><b>Rachel Nansubuga</b><p class="small"><span class="badge b-ok">Accepted</span></p><button class="btn primary role-hr-only" style="margin-top:8px;padding:5px 9px;font-size:12px">Convert to employee</button></div></div>
+      </div>
+    </section>
+
+    <!-- PAYROLL -->
+    <section id="payroll" class="screen">
+      <div class="pagehead"><div><h1>Payroll · November 2026</h1><p class="muted">Prepared by Daniel Opio · attendance month <span class="badge b-ok">Locked 26 Nov</span></p></div><div class="row"><button class="btn">Recalculate</button><button class="btn primary">Submit for approval</button></div></div>
+      <div class="card" style="margin-bottom:16px"><div class="stepper"><div class="step done" data-n="1">Attendance locked</div><div class="step cur" data-n="2">Draft</div><div class="step" data-n="3">Submitted</div><div class="step" data-n="4">Approved (HR, not preparer)</div><div class="step" data-n="5">Locked · payslips published</div></div></div>
+      <div class="grid g4" style="margin-bottom:16px">
+        <div class="card stat"><div class="l">Gross pay</div><div class="v">UGX 318.4M</div></div>
+        <div class="card stat"><div class="l">PAYE</div><div class="v">UGX 71.2M</div></div>
+        <div class="card stat"><div class="l">NSSF (5% + 10%)</div><div class="v">UGX 47.8M</div></div>
+        <div class="card stat"><div class="l">Net pay · 142 staff</div><div class="v">UGX 228.6M</div></div>
+      </div>
+      <div class="card" style="padding:0;overflow-x:auto">
+        <table><tr><th>Employee</th><th class="num">Basic</th><th class="num">Allowances</th><th class="num">Unpaid / absent</th><th class="num">PAYE</th><th class="num">NSSF 5%</th><th class="num">Loan</th><th class="num">Adj.</th><th class="num">Net (UGX)</th></tr>
+          <tr><td>Grace Namuli</td><td class="num">2,400,000</td><td class="num">250,000</td><td class="num">−109,091 <span class="small muted">(1 d)</span></td><td class="num">664,273</td><td class="num">127,045</td><td class="num">—</td><td class="num">—</td><td class="num"><b>1,749,591</b></td></tr>
+          <tr><td>Peter Ssali</td><td class="num">1,800,000</td><td class="num">150,000</td><td class="num">—</td><td class="num">487,000</td><td class="num">97,500</td><td class="num">−150,000</td><td class="num">—</td><td class="num"><b>1,215,500</b></td></tr>
+          <tr><td>Ruth Nakato</td><td class="num">2,000,000</td><td class="num">200,000</td><td class="num">—</td><td class="num">562,000</td><td class="num">110,000</td><td class="num">—</td><td class="num">+85,000 <span class="badge b-info">ADJ-07</span></td><td class="num"><b>1,613,000</b></td></tr>
+        </table>
+      </div>
+      <p class="small muted" style="margin-top:8px">Locked runs cannot be edited — corrections are created as authorised adjustments and applied in the next run.</p>
+    </section>
+
+    <!-- ASSETS -->
+    <section id="assets" class="screen">
+      <div class="pagehead"><div><h1>Assets</h1><p class="muted">318 items · 241 assigned · 69 available · 8 damaged/lost</p></div><button class="btn primary">+ Register asset</button></div>
+      <div class="grid g2" style="grid-template-columns:1.6fr 1fr">
+        <div class="card" style="padding:0"><table><tr><th>Tag</th><th>Item</th><th>Holder</th><th>Status</th><th></th></tr>
+          <tr><td>AST-0042</td><td>Dell Latitude 5440</td><td>Grace Namuli<br><span class="small muted">Issued 2 Nov · not acknowledged</span></td><td><span class="badge b-info">Assigned</span></td><td><button class="btn">Return</button></td></tr>
+          <tr><td>AST-0107</td><td>Samsung A15 phone</td><td>Ruth Nakato<br><span class="small muted">Acknowledged 10 Jan</span></td><td><span class="badge b-info">Assigned</span></td><td><button class="btn">Return</button></td></tr>
+          <tr><td>AST-0118</td><td>HP LaserJet</td><td>—</td><td><span class="badge b-ok">Available</span></td><td><button class="btn primary">Assign</button></td></tr>
+          <tr><td>AST-0023</td><td>Toyota Hilux UAX 123B</td><td>—</td><td><span class="badge b-bad">Damaged</span></td><td></td></tr></table></div>
+        <div class="card stack"><h2>Assign AST-0042</h2>
+          <div class="alert bad small">Already assigned to Grace Namuli. Record its return before assigning it to someone else.</div>
+          <div><label>Employee <span class="req">*</span></label><select><option>Brian Okello (SH-0143)</option></select></div>
+          <div><label>Condition notes</label><textarea rows="2"></textarea></div>
+          <button class="btn primary" disabled>Assign asset</button></div>
+      </div>
+    </section>
+
+    <!-- OFFBOARDING -->
+    <section id="exit" class="screen">
+      <div class="pagehead"><div><h1>Exit · Ruth Nakato</h1><p class="muted">Resignation · notice 30 Oct · last working day <b>Mon 30 Nov 2026</b> · account deactivates 1 Dec 00:10 EAT</p></div><button class="btn primary" disabled title="All clearance items must be complete">Close exit case</button></div>
+      <div class="grid g2" style="grid-template-columns:1.4fr 1fr">
+        <div class="card"><h2>Clearance · 3 of 5 complete</h2>
+          <div class="check"><div class="tick x">!</div><div style="flex:1"><b>Return company assets</b> <span class="badge">Asset Officer</span><p class="small muted">Auto-check: 1 item still out — AST-0107 Samsung A15 phone</p></div><button class="btn">Record return</button></div>
+          <div class="check"><div class="tick on">✓</div><div style="flex:1"><b>Handover of duties</b> <span class="badge">Line Manager</span><p class="small muted">Done by David Mugisha · 25 Nov</p></div></div>
+          <div class="check"><div class="tick x">!</div><div style="flex:1"><b>Loan settlement</b> <span class="badge">Payroll</span><p class="small muted">Auto-check: outstanding balance UGX 300,000 — deduct from final pay</p></div></div>
+          <div class="check"><div class="tick on">✓</div><div style="flex:1"><b>IT access & email</b> <span class="badge">Admin</span></div></div>
+          <div class="check"><div class="tick on">✓</div><div style="flex:1"><b>Exit documents</b> <span class="badge">HR</span></div></div>
+        </div>
+        <div class="card stack"><h2>What happens next</h2>
+          <div class="alert warn small">Case can't be closed while assets or loans are outstanding.</div>
+          <div class="alert info small">After the last working day, the account is deactivated automatically. Records are kept — never deleted.</div>
+          <h3>History</h3><p class="small muted">25 Nov · David Mugisha completed Handover<br>20 Nov · Admin revoked IT access<br>30 Oct · HR opened exit case (reason: resignation)</p></div>
+      </div>
+    </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- reject modal -->
+<div class="modal-bg" id="modal"><div class="card stack" style="width:420px">
+  <h2>Reject request</h2><div><label>Reason <span class="req">*</span></label><textarea rows="3" placeholder="Required — shared with the employee and stored in history"></textarea></div>
+  <div class="row" style="justify-content:flex-end"><button class="btn" onclick="modal(false)">Cancel</button><button class="btn primary" style="background:var(--bad);border-color:var(--bad)" onclick="modal(false)">Reject</button></div></div></div>
+
+<div class="note">Mockup only · use “Viewing as” to see role-based menus & privacy. Start: <a href="#" style="color:#7ee0d6" onclick="go('login')">Login</a> · <a href="#" style="color:#7ee0d6" onclick="go('careers')">Public careers</a></div>
+
+<script>
+const NAV = [
+  ['Overview', [['dashboard','Dashboard',['*']],['approvals','Approvals',['manager','hr'],5]]],
+  ['Me', [['leave','Leave',['employee','manager','hr','recruiter','payroll','asset']],['profile','My profile',['employee']]]],
+  ['People', [['employees','Employees',['hr','manager','payroll']],['profile','Employee profile',['hr','manager','payroll']],['exit','Offboarding',['hr','asset','payroll']]]],
+  ['Recruitment', [['pipeline','Vacancies & pipeline',['recruiter','hr']],['careers','Public careers page',['recruiter','hr']]]],
+  ['Finance & assets', [['payroll','Payroll',['payroll','hr']],['assets','Assets',['asset','hr']]]],
+  ['System', [['approvals','Audit log',['admin','hr']],['dashboard','Users & settings',['admin']]]],
+];
+const NAMES = {employee:['Grace','GN'],manager:['Sarah','SA'],hr:['Florence','FK'],recruiter:['Allan','AT'],payroll:['Daniel','DO'],asset:['Joseph','JL'],admin:['Admin','AD']};
+let role='employee', cur='login';
+function buildNav(){
+  const nav=document.getElementById('nav'); nav.innerHTML='<div class="logo"><span>SH</span>StaffHub</div>';
+  NAV.forEach(([lbl,items])=>{
+    const vis=items.filter(i=>i[2].includes('*')||i[2].includes(role)); if(!vis.length) return;
+    nav.insertAdjacentHTML('beforeend',`<div class="navlbl">${lbl}</div>`);
+    vis.forEach(([id,t,,c])=>nav.insertAdjacentHTML('beforeend',`<button data-go="${id}" class="${id===cur?'active':''}" onclick="go('${id}')">${t}${c?`<span class="count">${c}</span>`:''}</button>`));
+  });
+  nav.insertAdjacentHTML('beforeend','<div style="flex:1"></div><button onclick="go(\'login\')">Sign out</button>');
+}
+function setRole(r){
+  role=r; document.getElementById('av').textContent=NAMES[r][1];
+  document.querySelectorAll('.who').forEach(e=>e.textContent=NAMES[r][0]);
+  const isMgr=r==='manager'; document.getElementById('compData').style.display=isMgr?'none':'';
+  document.getElementById('compLock').style.display=isMgr?'':'none';
+  document.querySelectorAll('.role-hr-only').forEach(e=>e.style.display=(r==='hr')?'':'none');
+  document.querySelectorAll('.role-mgr').forEach(e=>e.style.display=(r==='manager'||r==='hr')?'':'none');
+  buildNav();
+}
+function go(id){
+  cur=id; document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  const full=(id==='login'||id==='careers');
+  document.getElementById('shell').style.display=full?'none':'grid';
+  document.getElementById(id).classList.add('on');
+  const b=document.querySelector(`#nav [data-go="${id}"]`); document.getElementById('crumb').textContent=b?b.firstChild.textContent:'';
+  buildNav(); window.scrollTo(0,0);
+}
+function modal(on){document.getElementById('modal').classList.toggle('on',on)}
+setRole('employee'); go('login');
+</script>
+</body>
+</html>
