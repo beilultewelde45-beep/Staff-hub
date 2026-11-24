@@ -1,0 +1,20 @@
+<aside id="sidebar" class="sidebar">
+  <div class="logo"><span>SH</span>StaffHub</div>
+  <nav aria-label="Main">
+    <% nav.forEach((section) => { %>
+      <div class="navlbl"><%= section.label %></div>
+      <% section.items.forEach((item) => { %>
+        <% if (item.ready) { %>
+          <a class="navitem<%= item.active ? ' active' : '' %>" href="<%= item.href %>"<%- item.active ? ' aria-current="page"' : '' %>><%= item.text %></a>
+        <% } else { %>
+          <span class="navitem soon" data-href="<%= item.href %>" title="Coming in a later milestone"><%= item.text %><span class="count">soon</span></span>
+        <% } %>
+      <% }) %>
+    <% }) %>
+  </nav>
+  <div class="spacer"></div>
+  <form method="post" action="/logout">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <button type="submit" class="navitem">Sign out</button>
+  </form>
+</aside>

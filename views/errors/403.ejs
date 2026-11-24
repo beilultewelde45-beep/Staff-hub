@@ -1,0 +1,6 @@
+<div class="error-page">
+  <p class="code">403</p>
+  <h1><%= title %></h1>
+  <p class="muted"><%= message %></p>
+  <p><a class="btn" href="<%= currentUser ? '/' : '/login' %>"><%= currentUser ? 'Back to dashboard' : 'Go to sign in' %></a></p>
+</div>
